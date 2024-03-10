@@ -3,6 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
+import '/core/constants/app_colors.dart';
 import '/core/constants/constants.dart';
 import '/core/constants/extensions.dart';
 import '/core/screens/error_screen.dart';
@@ -37,7 +38,7 @@ class ProfileScreen extends ConsumerWidget {
                     title: const Text('Profile Screen'),
                   )
                 : null,
-            backgroundColor: Colors.white,
+            backgroundColor: AppColors.whiteColor,
             body: Padding(
               padding: Constants.defaultPadding,
               child: Column(
