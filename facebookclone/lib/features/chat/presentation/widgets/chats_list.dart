@@ -19,7 +19,18 @@ class ChatsList extends ConsumerWidget {
           itemCount: chats.length,
           itemBuilder: (context, index) {
             final chat = chats.elementAt(index);
-            final userId = chat.members.firstWhere((userId) => userId != myUid);
+            //final userId = chat.members.firstWhere((userId) => userId != myUid);
+            // final userId = chat.members.firstWhere(
+            //   (userId) => userId != myUid,
+            //   orElse: () => 'defaultUserId', // Provide a default value here
+            // );
+
+            final List<String> members =
+                chat.members; // Ensure chat.members is not null
+            final userId = members.firstWhere(
+              (_) => true, // No condition, return the first non-null member
+              orElse: () => 'defaultUserId', // Provide a default value here
+            );
 
             return ChatTile(
               userId: userId,
