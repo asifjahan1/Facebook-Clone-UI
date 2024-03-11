@@ -4,6 +4,7 @@ import 'package:facebookclone/core/screens/loader.dart';
 import 'package:facebookclone/features/auth/providers/get_user_info_as_stream_by_id_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -152,6 +153,38 @@ class _MenuScreenState extends State<MenuScreen> {
                                   ],
                                 ),
                               ),
+                            const SizedBox(height: 20),
+                            SizedBox(
+                              width: double.infinity,
+                              child: TextButton(
+                                onPressed: () {
+                                  // Handle "See More" button press
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                    Colors.grey.withOpacity(0.3),
+                                  ),
+                                  padding: MaterialStateProperty.all<
+                                      EdgeInsetsGeometry>(
+                                    const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 8),
+                                  ),
+                                  shape:
+                                      MaterialStateProperty.all<OutlinedBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'See more',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
                       ),
