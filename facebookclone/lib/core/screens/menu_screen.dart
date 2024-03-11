@@ -29,13 +29,13 @@ class _MenuScreenState extends State<MenuScreen> {
       case 0:
         return Icons.save;
       case 1:
-        return Icons.feed;
+        return Icons.featured_video_rounded;
       case 2:
         return Icons.people_alt_outlined;
       case 3:
         return Icons.groups_2;
       case 4:
-        return Icons.video_library;
+        return Icons.tv_rounded;
       case 5:
         return Icons.flag;
       default:
