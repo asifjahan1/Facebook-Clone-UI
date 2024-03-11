@@ -1,3 +1,4 @@
+import 'package:facebookclone/core/screens/menu_screen.dart';
 import 'package:facebookclone/core/screens/profile_screen.dart';
 import 'package:facebookclone/features/friends/presentation/screens/friends_screen.dart';
 import 'package:facebookclone/features/posts/presentation/screens/posts_screen.dart';
@@ -63,9 +64,10 @@ class Constants {
     FriendsScreen(),
     VideosScreen(),
     ProfileScreen(),
-    Center(
-      child: Text('Settings Screen'),
-    ),
+    // Center(
+    //   child: Text('Settings Screen'),
+    // ),
+    MenuScreen(),
   ];
 
   Constants._();
