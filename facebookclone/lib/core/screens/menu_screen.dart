@@ -184,7 +184,7 @@ class _MenuScreenState extends State<MenuScreen> {
 
     return Expanded(
       child: Container(
-        height: 100,
+        height: 80,
         decoration: BoxDecoration(
           shape: BoxShape.rectangle,
           color: Colors.white,
@@ -200,7 +200,7 @@ class _MenuScreenState extends State<MenuScreen> {
         ),
         padding: const EdgeInsets.all(10),
         child: Align(
-          alignment: Alignment.topLeft,
+          alignment: Alignment.centerLeft,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.start,
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -213,9 +213,10 @@ class _MenuScreenState extends State<MenuScreen> {
               const SizedBox(height: 8),
               Text(
                 texts[index], // Display text corresponding to the icon index
-                style: TextStyle(
+                style: const TextStyle(
                   fontSize: 14,
                   color: Colors.black,
+                  fontWeight: FontWeight.bold,
                 ),
               ),
             ],
