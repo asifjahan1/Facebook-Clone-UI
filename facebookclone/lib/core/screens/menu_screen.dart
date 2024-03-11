@@ -9,60 +9,45 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 class MenuScreen extends StatefulWidget {
   static const routeName = '/menu';
 
-  const MenuScreen({super.key});
+  const MenuScreen({Key? key}) : super(key: key);
 
   @override
   State<MenuScreen> createState() => _MenuScreenState();
 }
 
 class _MenuScreenState extends State<MenuScreen> {
-  String? userId; // Define userId variable
+  String? userId;
 
   @override
   void initState() {
     super.initState();
-    userId = FirebaseAuth.instance.currentUser!.uid; // Get current user ID
+    userId = FirebaseAuth.instance.currentUser!.uid;
   }
 
-  Widget _buildMenuItem(int index) {
-    IconData iconData;
+  IconData _getIconData(int index) {
     switch (index) {
       case 0:
-        iconData = Icons.save;
-        break;
+        return Icons.save;
       case 1:
-        iconData = Icons.feed;
-        break;
+        return Icons.feed;
       case 2:
-        iconData = Icons.people;
-        break;
+        return Icons.people_alt_outlined;
       case 3:
-        iconData = Icons.group;
-        break;
+        return Icons.groups_2;
       case 4:
-        iconData = Icons.video_library;
-        break;
+        return Icons.video_library;
       case 5:
-        iconData = Icons.pages;
-        break;
+        return Icons.flag;
       default:
-        iconData = Icons.error;
+        return Icons.error;
     }
-
-    return GestureDetector(
-      onTap: () {
-        // Handle menu item tap if needed
-      },
-      child: Icon(iconData),
-    );
   }
 
   @override
   Widget build(BuildContext context) {
     return Consumer(
       builder: (context, ref, _) {
-        final userInfo = ref.watch(getUserInfoAsStreamByIdProvider(
-            userId!)); // Pass userId to provider
+        final userInfo = ref.watch(getUserInfoAsStreamByIdProvider(userId!));
 
         return userInfo.when(
           data: (user) {
@@ -78,7 +63,9 @@ class _MenuScreenState extends State<MenuScreen> {
                       const Text(
                         'Menu',
                         style: TextStyle(
-                            fontWeight: FontWeight.bold, fontSize: 25),
+                          fontWeight: FontWeight.bold,
+                          fontSize: 25,
+                        ),
                       ),
                       const SizedBox(height: 10),
                       Material(
@@ -99,7 +86,6 @@ class _MenuScreenState extends State<MenuScreen> {
                                     decoration: BoxDecoration(
                                       shape: BoxShape.circle,
                                       border: Border.all(
-                                        //color: Colors.grey.withOpacity(0.5),
                                         width: 2,
                                       ),
                                     ),
@@ -147,17 +133,26 @@ class _MenuScreenState extends State<MenuScreen> {
                       ),
                       const SizedBox(height: 20),
                       Expanded(
-                        child: GridView.builder(
-                          gridDelegate:
-                              const SliverGridDelegateWithFixedCrossAxisCount(
-                            crossAxisCount: 2,
-                            crossAxisSpacing: 10,
-                            mainAxisSpacing: 10,
-                          ),
-                          itemCount: 6,
-                          itemBuilder: (context, index) {
-                            return _buildMenuItem(index);
-                          },
+                        child: Column(
+                          children: [
+                            for (int i = 0; i < 6; i += 2)
+                              Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  vertical: 5.0,
+                                ),
+                                child: Row(
+                                  mainAxisAlignment:
+                                      MainAxisAlignment.spaceEvenly,
+                                  children: [
+                                    const SizedBox(width: 5),
+                                    _buildMenuItem(i),
+                                    const SizedBox(width: 5),
+                                    _buildMenuItem(i + 1),
+                                    const SizedBox(width: 5),
+                                  ],
+                                ),
+                              ),
+                          ],
                         ),
                       ),
                     ],
@@ -174,6 +169,36 @@ class _MenuScreenState extends State<MenuScreen> {
           },
         );
       },
+    );
+  }
+
+  Widget _buildMenuItem(int index) {
+    return Expanded(
+      child: Container(
+        height: 100,
+        decoration: BoxDecoration(
+          shape: BoxShape.rectangle,
+          color: Colors.white,
+          borderRadius: BorderRadius.circular(8),
+          boxShadow: [
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.5),
+              spreadRadius: 2,
+              blurRadius: 5,
+              offset: const Offset(0, 1),
+            ),
+          ],
+        ),
+        padding: const EdgeInsets.all(10),
+        child: Align(
+          alignment: Alignment.topLeft,
+          child: Icon(
+            _getIconData(index),
+            size: 24,
+            color: Colors.blue,
+          ),
+        ),
+      ),
     );
   }
 }
