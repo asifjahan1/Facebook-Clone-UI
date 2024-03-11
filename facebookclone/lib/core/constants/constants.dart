@@ -50,7 +50,7 @@ class Constants {
       ),
       Tab(
         icon: Icon(
-          index == 5 ? Icons.density_medium : Icons.density_medium_outlined,
+          index == 4 ? Icons.density_medium : Icons.density_medium_outlined,
           color: Colors.blue,
           size: 30,
         ),
