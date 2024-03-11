@@ -173,6 +173,15 @@ class _MenuScreenState extends State<MenuScreen> {
   }
 
   Widget _buildMenuItem(int index) {
+    List<String> texts = [
+      'Saved',
+      'Feeds',
+      'Friends',
+      'Groups',
+      'Video',
+      'Pages',
+    ];
+
     return Expanded(
       child: Container(
         height: 100,
@@ -192,10 +201,24 @@ class _MenuScreenState extends State<MenuScreen> {
         padding: const EdgeInsets.all(10),
         child: Align(
           alignment: Alignment.topLeft,
-          child: Icon(
-            _getIconData(index),
-            size: 24,
-            color: Colors.blue,
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.start,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Icon(
+                _getIconData(index),
+                size: 24,
+                color: Colors.blue,
+              ),
+              const SizedBox(height: 8),
+              Text(
+                texts[index], // Display text corresponding to the icon index
+                style: TextStyle(
+                  fontSize: 14,
+                  color: Colors.black,
+                ),
+              ),
+            ],
           ),
         ),
       ),
