@@ -4,7 +4,6 @@ import 'package:facebookclone/core/screens/loader.dart';
 import 'package:facebookclone/features/auth/providers/get_user_info_as_stream_by_id_provider.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 class MenuScreen extends StatefulWidget {
@@ -36,9 +35,13 @@ class _MenuScreenState extends State<MenuScreen> {
       case 3:
         return Icons.groups_2;
       case 4:
-        return Icons.tv_rounded;
+        return Icons.live_tv_rounded;
       case 5:
         return Icons.flag;
+      case 6:
+        return Icons.watch_later_outlined;
+      case 7:
+        return Icons.event_available_outlined;
       default:
         return Icons.error;
     }
@@ -55,88 +58,88 @@ class _MenuScreenState extends State<MenuScreen> {
             return SafeArea(
               child: Scaffold(
                 backgroundColor: Colors.white60,
-                body: Padding(
-                  padding: Constants.defaultPadding,
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    mainAxisAlignment: MainAxisAlignment.start,
-                    children: [
-                      const Text(
-                        'Menu',
-                        style: TextStyle(
-                          fontWeight: FontWeight.bold,
-                          fontSize: 25,
-                        ),
-                      ),
-                      const SizedBox(height: 10),
-                      Material(
-                        elevation: 2,
-                        borderRadius: BorderRadius.circular(8),
-                        child: Container(
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(8),
+                body: SingleChildScrollView(
+                  child: Padding(
+                    padding: Constants.defaultPadding,
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      mainAxisAlignment: MainAxisAlignment.start,
+                      children: [
+                        const Text(
+                          'Menu',
+                          style: TextStyle(
+                            fontWeight: FontWeight.bold,
+                            fontSize: 25,
                           ),
-                          padding: const EdgeInsets.all(8),
-                          child: Column(
-                            children: [
-                              Row(
-                                children: [
-                                  Container(
-                                    width: 60,
-                                    height: 60,
-                                    decoration: BoxDecoration(
-                                      shape: BoxShape.circle,
-                                      border: Border.all(
-                                        width: 2,
+                        ),
+                        const SizedBox(height: 10),
+                        Material(
+                          elevation: 2,
+                          borderRadius: BorderRadius.circular(8),
+                          child: Container(
+                            decoration: BoxDecoration(
+                              borderRadius: BorderRadius.circular(8),
+                            ),
+                            padding: const EdgeInsets.all(8),
+                            child: Column(
+                              children: [
+                                Row(
+                                  children: [
+                                    Container(
+                                      width: 60,
+                                      height: 60,
+                                      decoration: BoxDecoration(
+                                        shape: BoxShape.circle,
+                                        border: Border.all(
+                                          width: 2,
+                                        ),
+                                      ),
+                                      child: CircleAvatar(
+                                        radius: 10,
+                                        backgroundImage:
+                                            NetworkImage(user.profilePicUrl),
                                       ),
                                     ),
-                                    child: CircleAvatar(
-                                      radius: 10,
-                                      backgroundImage:
-                                          NetworkImage(user.profilePicUrl),
-                                    ),
-                                  ),
-                                  const SizedBox(width: 10),
-                                  Text(
-                                    user.fullName,
-                                    style: const TextStyle(
-                                      fontWeight: FontWeight.w400,
-                                      fontSize: 21,
-                                    ),
-                                  ),
-                                ],
-                              ),
-                              const SizedBox(height: 15),
-                              const Divider(thickness: 0.35),
-                              const Padding(
-                                padding: EdgeInsets.all(10.0),
-                                child: Row(
-                                  children: [
-                                    Icon(
-                                      Icons.add_circle,
-                                      size: 35,
-                                      color: Colors.grey,
-                                    ),
-                                    SizedBox(width: 10),
+                                    const SizedBox(width: 10),
                                     Text(
-                                      'Create new Profile or Page',
-                                      style: TextStyle(
-                                        color: Colors.grey,
-                                        fontSize: 20,
+                                      user.fullName,
+                                      style: const TextStyle(
+                                        fontWeight: FontWeight.w400,
+                                        fontSize: 21,
                                       ),
                                     ),
                                   ],
                                 ),
-                              ),
-                            ],
+                                const SizedBox(height: 15),
+                                const Divider(thickness: 0.35),
+                                const Padding(
+                                  padding: EdgeInsets.all(10.0),
+                                  child: Row(
+                                    children: [
+                                      Icon(
+                                        Icons.add_circle,
+                                        size: 35,
+                                        color: Colors.grey,
+                                      ),
+                                      SizedBox(width: 10),
+                                      Text(
+                                        'Create new Profile or Page',
+                                        style: TextStyle(
+                                          color: Colors.grey,
+                                          fontSize: 20,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                      const SizedBox(height: 20),
-                      Expanded(
-                        child: Column(
+                        const SizedBox(height: 20),
+                        Column(
                           children: [
-                            for (int i = 0; i < 6; i += 2)
+                            for (int i = 0; i < 8; i += 2)
                               Padding(
                                 padding: const EdgeInsets.symmetric(
                                   vertical: 5.0,
@@ -185,10 +188,130 @@ class _MenuScreenState extends State<MenuScreen> {
                                 ),
                               ),
                             ),
+                            const Divider(thickness: 0.35),
+                            const SizedBox(
+                              width: double.infinity,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.question_mark_rounded,
+                                        color: Colors.black54,
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        'Help & Support',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Icon(Icons.keyboard_arrow_down_rounded),
+                                ],
+                              ),
+                            ),
+                            const Divider(thickness: 0.35),
+                            const SizedBox(
+                              width: double.infinity,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.settings_sharp,
+                                        color: Colors.black54,
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        'Settings & privacy',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Icon(Icons.keyboard_arrow_down_rounded),
+                                ],
+                              ),
+                            ),
+                            const Divider(thickness: 0.35),
+                            const SizedBox(
+                              width: double.infinity,
+                              child: Row(
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
+                                children: [
+                                  Row(
+                                    children: [
+                                      Icon(
+                                        Icons.check_box_sharp,
+                                        color: Colors.black54,
+                                      ),
+                                      SizedBox(
+                                        width: 8,
+                                      ),
+                                      Text(
+                                        'Also from Meta',
+                                        style: TextStyle(
+                                          fontSize: 20,
+                                          fontWeight: FontWeight.bold,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                  Icon(Icons.keyboard_arrow_down_rounded),
+                                ],
+                              ),
+                            ),
+                            const SizedBox(height: 25),
+                            SizedBox(
+                              width: double.infinity,
+                              child: TextButton(
+                                onPressed: () {
+                                  // Handle logout here
+                                  FirebaseAuth.instance.signOut();
+                                },
+                                style: ButtonStyle(
+                                  backgroundColor:
+                                      MaterialStateProperty.all<Color>(
+                                    Colors.grey.withOpacity(0.3),
+                                  ),
+                                  padding: MaterialStateProperty.all<
+                                      EdgeInsetsGeometry>(
+                                    const EdgeInsets.symmetric(
+                                        horizontal: 16, vertical: 8),
+                                  ),
+                                  shape:
+                                      MaterialStateProperty.all<OutlinedBorder>(
+                                    RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(8),
+                                    ),
+                                  ),
+                                ),
+                                child: const Text(
+                                  'Log out',
+                                  style: TextStyle(
+                                    color: Colors.black,
+                                  ),
+                                ),
+                              ),
+                            ),
                           ],
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -213,6 +336,8 @@ class _MenuScreenState extends State<MenuScreen> {
       'Groups',
       'Video',
       'Pages',
+      'Memories',
+      'Events',
     ];
 
     return Expanded(

@@ -1,13 +1,17 @@
 import 'package:facebookclone/features/auth/presentation/screens/create_account_screee.dart';
 import 'package:facebookclone/features/auth/providers/auth_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+import '/core/constants/constants.dart';
+import '/core/widgets/round_button.dart';
+import '/core/widgets/round_text_field.dart';
+import '/features/auth/utils/utils.dart';
 
 final _formKey = GlobalKey<FormState>();
 
 class LoginScreen extends ConsumerStatefulWidget {
-  const LoginScreen({Key? key}) : super(key: key);
+  const LoginScreen({super.key});
 
   @override
   ConsumerState<LoginScreen> createState() => _LoginScreenState();
@@ -16,6 +20,8 @@ class LoginScreen extends ConsumerStatefulWidget {
 class _LoginScreenState extends ConsumerState<LoginScreen> {
   late final TextEditingController _emailController;
   late final TextEditingController _passwordController;
+
+  bool isLoading = false;
 
   @override
   void initState() {
@@ -31,13 +37,15 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     super.dispose();
   }
 
-  Future<void> _login() async {
+  Future<void> login() async {
     if (_formKey.currentState!.validate()) {
       _formKey.currentState!.save();
+      setState(() => isLoading = true);
       await ref.read(authProvider).signIn(
             email: _emailController.text,
             password: _passwordController.text,
           );
+      setState(() => isLoading = false);
     }
   }
 
@@ -46,57 +54,61 @@ class _LoginScreenState extends ConsumerState<LoginScreen> {
     return Scaffold(
       appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.all(16.0),
+        padding: Constants.defaultPadding,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.spaceAround,
           children: [
+            Image.asset(
+              'assets/icons/fb_logo.png',
+              width: 60,
+            ),
             Form(
               key: _formKey,
               child: Column(
                 children: [
-                  TextFormField(
+                  RoundTextField(
                     controller: _emailController,
-                    decoration: InputDecoration(
-                      hintText: 'Email',
-                    ),
+                    hintText: 'Email',
                     keyboardType: TextInputType.emailAddress,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your email';
-                      }
-                      return null;
-                    },
+                    textInputAction: TextInputAction.next,
+                    validator: validateEmail,
                   ),
                   const SizedBox(height: 15),
-                  TextFormField(
+                  RoundTextField(
                     controller: _passwordController,
-                    decoration: InputDecoration(
-                      hintText: 'Password',
-                    ),
-                    obscureText: true,
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return 'Please enter your password';
-                      }
-                      return null;
-                    },
+                    hintText: 'Password',
+                    keyboardType: TextInputType.visiblePassword,
+                    textInputAction: TextInputAction.done,
+                    isPassword: true,
+                    validator: validatePassword,
                   ),
                   const SizedBox(height: 15),
-                  ElevatedButton(
-                    onPressed: _login,
-                    child: Text('Login'),
-                  ),
+                  RoundButton(onPressed: login, label: 'Login'),
                   const SizedBox(height: 15),
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.of(context).pushNamed(
-                        CreateAccountScreen.routeName,
-                      );
-                    },
-                    child: Text('Create new account'),
+                  const Text(
+                    'Forget Password?',
+                    style: TextStyle(fontSize: 18),
                   ),
                 ],
               ),
+            ),
+            Column(
+              children: [
+                RoundButton(
+                  onPressed: () {
+                    Navigator.of(context).pushNamed(
+                      CreateAccountScreen.routeName,
+                    );
+                  },
+                  label: 'Create new account',
+                  color: Colors.transparent,
+                ),
+                Image.asset(
+                  'assets/icons/meta.png',
+                  height: 50,
+                ),
+              ],
             ),
           ],
         ),

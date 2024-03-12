@@ -31,26 +31,30 @@ class MainApp extends StatelessWidget {
     return MaterialApp(
       theme: AppTheme.appTheme(),
       debugShowCheckedModeBanner: false,
-      home: StreamBuilder(
-        stream: FirebaseAuth.instance.authStateChanges(),
-        builder: (context, snapshot) {
-          if (snapshot.connectionState == ConnectionState.waiting) {
-            return const Loader();
-          }
-
-          if (snapshot.hasData) {
-            final user = snapshot.data;
-            if (user!.emailVerified) {
-              return const HomeScreen();
-            } else {
-              return const VerifyEmailScreen();
-            }
-          }
-
-          return const LoginScreen();
-        },
-      ),
+      home: const AuthWrapper(),
       onGenerateRoute: Routes.onGenerateRoute,
+    );
+  }
+}
+
+class AuthWrapper extends StatelessWidget {
+  const AuthWrapper({Key? key}) : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return StreamBuilder<User?>(
+      stream: FirebaseAuth.instance.authStateChanges(),
+      builder: (context, snapshot) {
+        if (snapshot.connectionState == ConnectionState.waiting) {
+          return const Loader();
+        }
+
+        if (snapshot.hasData && snapshot.data!.emailVerified) {
+          return const HomeScreen();
+        }
+
+        return const LoginScreen();
+      },
     );
   }
 }
