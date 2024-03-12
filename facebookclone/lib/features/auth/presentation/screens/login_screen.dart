@@ -11,6 +11,7 @@ import '/features/auth/utils/utils.dart';
 final _formKey = GlobalKey<FormState>();
 
 class LoginScreen extends ConsumerStatefulWidget {
+  static const String routeName = '/login';
   const LoginScreen({super.key});
 
   @override

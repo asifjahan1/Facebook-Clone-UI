@@ -2,7 +2,7 @@ import 'package:facebookclone/core/screens/error_screen.dart';
 import 'package:facebookclone/core/screens/loader.dart';
 import 'package:facebookclone/features/chat/presentation/widgets/chat_tile.dart';
 import 'package:facebookclone/features/chat/providers/get_all_chats_provider.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+//import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
@@ -11,7 +11,7 @@ class ChatsList extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final chatsList = ref.watch(getAllChatsProvider);
-    final myUid = FirebaseAuth.instance.currentUser!.uid;
+    //final myUid = FirebaseAuth.instance.currentUser!.uid;
 
     return chatsList.when(
       data: (chats) {
